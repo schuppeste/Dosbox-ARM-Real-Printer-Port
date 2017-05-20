@@ -1,0 +1,19 @@
+--- src/ints/bios.cpp	6 Aug 2008 18:32:35 -0000	1.72
++++ src/ints/bios.cpp	24 Aug 2008 16:48:21 -0000
+@@ -30,6 +30,7 @@
+ #include "mouse.h"
+ #include "setup.h"
+ #include "serialport.h"
++#include "parport.h"
+ 
+ 
+ /* if mem_systems 0 then size_extended is reported as the real size else 
+@@ -828,7 +842,7 @@
+ 		BIOS_SetupKeyboard();
+ 
+ 		/* INT 17 Printer Routines */
+-		callback[5].Install(&INT17_Handler,CB_IRET,"Int 17 Printer");
++		callback[5].Install(&INT17_Handler,CB_IRET_STI,"Int 17 Printer");
+ 		callback[5].Set_RealVec(0x17);
+ 
+ 		/* INT 1A TIME and some other functions */

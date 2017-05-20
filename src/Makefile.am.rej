@@ -1,0 +1,11 @@
+--- src/Makefile.am	28 Oct 2007 16:33:42 -0000	1.10
++++ src/Makefile.am	24 Aug 2008 16:48:18 -0000
+@@ -11,7 +11,7 @@
+ 
+ dosbox_SOURCES = dosbox.cpp
+ dosbox_LDADD = cpu/libcpu.a debug/libdebug.a dos/libdos.a fpu/libfpu.a  hardware/libhardware.a gui/libgui.a \
+-               ints/libints.a misc/libmisc.a shell/libshell.a hardware/serialport/libserial.a libs/gui_tk/libgui_tk.a\
++               ints/libints.a misc/libmisc.a shell/libshell.a hardware/serialport/libserial.a hardware/parport/libparallel.a libs/gui_tk/libgui_tk.a\
+ 	       $(ico_stuff)
+ 
+ EXTRA_DIST = dosbox.rc dosbox.ico

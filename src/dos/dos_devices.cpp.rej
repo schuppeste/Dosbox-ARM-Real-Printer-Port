@@ -1,0 +1,53 @@
+--- src/dos/dos_devices.cpp	11 Aug 2008 13:09:44 -0000	1.20
++++ src/dos/dos_devices.cpp	24 Aug 2008 16:48:19 -0000
+@@ -58,10 +59,39 @@
+ 	virtual bool WriteToControlChannel(PhysPt bufptr,Bit16u size,Bit16u * retcode){return false;}
+ };
+ 
+-class device_LPT1 : public device_NUL {
++class device_PRN : public DOS_Device {
+ public:
+-   	device_LPT1() { SetName("LPT1");}
+-	Bit16u GetInformation(void) { return 0x80A0; }
++	device_PRN() {
++		SetName("PRN");
++	}
++	bool Read(Bit8u * data,Bit16u * size) {
++		*size=0;
++		LOG(LOG_DOSMISC,LOG_NORMAL)("PRNDEVICE:Read called");
++		return true;
++	}
++	bool Write(Bit8u * data,Bit16u * size) {
++		for(int i = 0; i < 3; i++) {
++			// look up a parallel port
++			if(parallelPortObjects[i] != NULL) {
++				// send the data
++				for (Bit16u j=0; j<*size; j++) {
++					if(!parallelPortObjects[i]->Putchar(data[j])) return false;
++				}
++				return true;
++			}
++		}
++		return false;
++	}
++	bool Seek(Bit32u * pos,Bit32u type) {
++		*pos = 0;
++		return true;
++	}
++	Bit16u GetInformation(void) {
++		return 0x80A0;
++	}
++	bool Close() {
++		return false;
++	}
+ };
+ 
+ bool DOS_Device::Read(Bit8u * data,Bit16u * size) {
+@@ -126,7 +156,6 @@
+ 	// STDAUX is alias for COM1
+ 	// A bit of a hack, but no application will probably use stdaux to determine wether a directory exists
+ 	if (strcasecmp(name, "STDAUX") == 0) name = "COM1";
+-	if (strcasecmp(name, "PRN") == 0) name = "LPT1";
+ 
+ 	char temp[CROSS_LEN];//TODO
+ 	if(!name || !(*name)) return DOS_DEVICES;

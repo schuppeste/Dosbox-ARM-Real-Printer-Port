@@ -1,0 +1,11 @@
+--- src/shell/shell.cpp	11 Aug 2008 12:52:36 -0000	1.92
++++ src/shell/shell.cpp	24 Aug 2008 16:48:21 -0000
+@@ -616,7 +616,7 @@
+ 	DOS_ForceDuplicateEntry(1,0);/* "new" STDIN */
+ 	DOS_ForceDuplicateEntry(1,2);/* STDERR */
+ 	DOS_OpenFile("CON",2,&dummy);/* STDAUX */
+-	DOS_OpenFile("CON",2,&dummy);/* STDPRN */
++	DOS_OpenFile("PRN",2,&dummy);/* STDPRN */
+ 
+ 	psp.SetParent(psp_seg);
+ 	/* Set the environment */
