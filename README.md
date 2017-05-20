@@ -1,5 +1,7 @@
 # Dosbox-ARM-Real-Printer-Port
 Dosbox SVN, added Feature "Real Printer Port" with Subd-25 (MCP23017)
+
+Maybe its useful as example OrangePi to use all 4 integrated Hardware Serial and Printer Support. 
 Setup:
 
 
